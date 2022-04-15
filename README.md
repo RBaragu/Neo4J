@@ -5,8 +5,12 @@ an institution's data. The nodes and relationships are specified in Cypher as sh
 
 2. Creation - Nodes and relationships
 
-#MATCH (n) DETACH DELETE n;
+```
+MATCH (n) DETACH DELETE n;
 
+```
+
+```
 CREATE (s1: Student {studentID: "1", lastName: "Doe", firstName: "Ana", middleName: "Maria"})
 CREATE (r1: Room {roomName: "Pascal"})
 CREATE (p1: Project {projectNr: "34", projectName: "eCommerce database"})
@@ -49,19 +53,25 @@ CREATE
 
 CREATE (s5: Student {studentID: "5", lastName: "Travolta", firstName: "John"})
 
+```
+
 3. Specify the following queries in Cypher and execute them in Neo4j.
 
-Question 1
+- Question 1
 In which rooms do courses with course number "1" take place? Retrieve the course
 name and the names of the rooms in which the course takes place.
 
 Cypher:
 
+```
 MATCH (c:Course {courseNr: '1'})-[:TAKESPLACEIN]->(r:Room)
 RETURN c.courseName AS Course_Name, r.roomName AS Room_Name
 
+```
+
 Output:
 
+```
 +-------------------------+
 ¦"Course_Name"¦"Room_Name"¦
 ¦-------------+-----------¦
@@ -72,18 +82,26 @@ Output:
 ¦"Databases"  ¦"Pascal"   ¦
 +-------------------------+
 
-Question 2
+```
+
+- Question 2
 How many hours and in which projects do students with student number "1" works?
 Retrieve the first name of the student, the project the student works on, and the
 corresponding number of hours worked on the project.
 
 Cypher:
 
+```
 MATCH (s:Student {studentID: '1'})-[rel:WORKSON]->(p:Project)
 RETURN s.firstName AS Student_First_Name, p.projectName AS Project_Name, sum(rel.hours) AS Project_Hours
 
+```
+
+
 Output:
 
+
+```
 +---------------------------------------------------------+
 ¦"Student_First_Name"¦"Project_Name"      ¦"Project_Hours"¦
 ¦--------------------+--------------------+---------------¦
@@ -92,19 +110,25 @@ Output:
 ¦"Ana"               ¦"eCommerce database"¦1              ¦
 +---------------------------------------------------------+
 
+```
 
-Question 3
+
+- Question 3
 Which students and how many hours do they work on the project with project number
 "24"? Retrieve the project name, the last name of the student and the corresponding
 number of hours worked on the project.
 
 Cypher:
 
+```
 MATCH (s:Student )-[rel:WORKSON]->(p:Project{projectNr:'24'})
 RETURN s.lastName AS Student_Last_Name, p.projectName AS Project24_Name,sum(rel.hours) AS Project_Hours
 
+```
+
 Output:
 
+```
 +-------------------------------------------------------+
 ¦"Student_Last_Name"¦"Project24_Name"   ¦"Project_Hours"¦
 ¦-------------------+-------------------+---------------¦
@@ -113,18 +137,24 @@ Output:
 ¦"Ung"              ¦"eCommerce website"¦4              ¦
 +-------------------------------------------------------+
 
-Question 4
+```
+
+- Question 4
 Which students work on which projects and how many hours? Retrieve the last name of
 the students, the name of the projects they work on, and the corresponding number of
 hours. Order the results by the last name of the students. Limit the results to four.
 
 Cypher:
 
+```
 MATCH (s:Student )-[rel:WORKSON]->(p:Project)
 RETURN s.lastName AS Student_Last_Name, p.projectName AS Project_Name,sum(rel.hours) AS Project_Hours ORDER BY s.lastName LIMIT 4
 
+```
+
 Output:
 
+```
 +--------------------------------------------------------+
 ¦"Student_Last_Name"¦"Project_Name"      ¦"Project_Hours"¦
 ¦-------------------+--------------------+---------------¦
@@ -137,19 +167,25 @@ Output:
 ¦"Ung"              ¦"Reporting"         ¦1              ¦
 +--------------------------------------------------------+
 
-Question 5
+```
+
+- Question 5
 Which students work on more than two projects and on how many projects exactly?
 Retrieve the last name of the students and the corresponding number of projects. Order
 the results by the number of projects.
 
-Cypher 1:
+Cypher :
 
+```
 MATCH (s:Student )-[rel:WORKSON]->(p:Project)
 RETURN s.lastName AS Student_Last_Name, count(rel) AS No_of_Projects ORDER BY count(rel)
 # Using firstName instead of lastName as s1 and s3 have the same lastName
 
-Output 1:
+```
 
+Output :
+
+```
 +------------------------------------+
 ¦"Student_Last_Name"¦"No_of_Projects"¦
 ¦-------------------+----------------¦
@@ -158,34 +194,24 @@ Output 1:
 ¦"Doe"              ¦5               ¦
 +------------------------------------+
 
-Cypher 2:
+```
 
-MATCH (s:Student )-[rel:WORKSON]->(p:Project)
-RETURN s.firstName AS Student_First_Name, count(rel) AS No_of_Projects ORDER BY count(rel)
-
-Output 2:
-
-¦"Student_First_Name"¦"No_of_Projects"¦
-¦--------------------+----------------¦
-¦"Ana"               ¦2               ¦
-+--------------------+----------------¦
-¦"John"              ¦3               ¦
-+--------------------+----------------¦
-¦"Peter"             ¦4               ¦
-+-------------------------------------+
-
-Question 6
+- Question 6
 Which students have the same last name and work on the same projects? Retrieve the
 first name of the students and the name of the projects they share.
 
 Cypher:
 
+```
 MATCH (x:Student)-[:WORKSON]->(y:Project),(x1:Student)-[:WORKSON]->(y1:Project)
 WHERE x.lastName = x1.lastName AND y.projectName = y1.projectName
 RETURN DISTINCT x.firstName AS Student_First_Name, y.projectName AS Project_Name ORDER BY x.firstName;
 
+```
+
 Output:
 
+```
 +-----------------------------------------+
 ¦"Student_First_Name"¦"Project_Name"      ¦
 ¦--------------------+--------------------¦
@@ -197,3 +223,5 @@ Output:
 +--------------------+--------------------¦
 ¦"John"              ¦"eCommerce database"¦
 +-----------------------------------------+
+
+```

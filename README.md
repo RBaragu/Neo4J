@@ -1,4 +1,4 @@
-1. Introduction
+# 1. Introduction
 
 You have been given the task of answering the following questions using a graph consisting of
 an institution's data. The nodes and relationships are specified in Cypher as shown:
@@ -85,6 +85,8 @@ Output:
 ```
 
 - Question 2
+
+
 How many hours and in which projects do students with student number "1" works?
 Retrieve the first name of the student, the project the student works on, and the
 corresponding number of hours worked on the project.
@@ -114,6 +116,8 @@ Output:
 
 
 - Question 3
+
+
 Which students and how many hours do they work on the project with project number
 "24"? Retrieve the project name, the last name of the student and the corresponding
 number of hours worked on the project.
@@ -140,6 +144,8 @@ Output:
 ```
 
 - Question 4
+
+
 Which students work on which projects and how many hours? Retrieve the last name of
 the students, the name of the projects they work on, and the corresponding number of
 hours. Order the results by the last name of the students. Limit the results to four.
@@ -170,6 +176,8 @@ Output:
 ```
 
 - Question 5
+
+
 Which students work on more than two projects and on how many projects exactly?
 Retrieve the last name of the students and the corresponding number of projects. Order
 the results by the number of projects.
@@ -197,6 +205,8 @@ Output :
 ```
 
 - Question 6
+
+
 Which students have the same last name and work on the same projects? Retrieve the
 first name of the students and the name of the projects they share.
 
